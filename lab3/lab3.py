@@ -14,18 +14,18 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('--height', '-ht', type=int, required=True, help='Новая высота изображения')
     return parser.parse_args()
 
-def load_image(path) -> np.ndarray:
+def load_image(path: str) -> np.ndarray:
     """Загрузка изображения с проверкой"""
     img = cv2.imread(path)
     if img is None:
         raise ValueError(f"Не удалось загрузить изображение: {path}")
     return img
 
-def resize_image(image, width, height) -> np.ndarray:
+def resize_image(image: np.ndarray, width: int, height: int) -> np.ndarray:
     """Изменение размера изображения"""
     return cv2.resize(image, (width, height))
 
-def create_comparison_plot(original_img, resized_img, original_size, new_size) -> None:
+def create_comparison_plot(original_img: np.ndarray, resized_img: np.ndarray, original_size: Tuple[int, int], new_size: Tuple[int, int]) -> None:
     """Создание сравнительного графика"""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
 
@@ -40,7 +40,7 @@ def create_comparison_plot(original_img, resized_img, original_size, new_size) -
     plt.tight_layout()
     plt.show()
 
-def save_image(image, output_path) -> None:
+def save_image(image: np.ndarray, output_path: str) -> None:
     """Сохранение изображения с созданием директорий при необходимости"""
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
